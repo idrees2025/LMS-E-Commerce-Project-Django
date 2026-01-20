@@ -1,0 +1,955 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>E-Commerce Front End Theme</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/css/style.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/css/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/css/theme/default.css' %}" id="theme" rel="stylesheet" />
+	<link href="{% static 'assets/css/animate.min.css' %}" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'assets/plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body>
+    <!-- BEGIN #page-container -->
+    <div id="page-container" class="fade">
+        <!-- BEGIN #top-nav -->
+        <div id="top-nav" class="top-nav">
+            <!-- BEGIN container -->
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown dropdown-hover">
+                            <a href="" data-toggle="dropdown"><img src="{% static 'assets/img/english.png' %}" class="flag-img" alt="" /> English <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href=""><img src="{% static 'assets/img/english.png' %}" class="flag-img" alt="" /> English</a></li>
+                                <li><a href=""><img src="{% static 'assets/img/german.png' %}" class="flag-img" alt="" /> German</a></li>
+                                <li><a href=""><img src="{% static 'assets/img/spanish.png' %}" class="flag-img" alt="" /> Spanish</a></li>
+                                <li><a href=""><img src="{% static 'assets/img/french.png' %}" class="flag-img" alt="" /> French</a></li>
+                                <li><a href=""><img src="{% static 'assets/img/chinese.png' %}" class="flag-img" alt="" /> Chinese</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Customer Care</a></li>
+                        <li><a href="">Order Tracker</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="">Career</a></li>
+                        <li><a href="">Our Forum</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href=""><i class="fa fa-facebook f-s-14"></i></a></li>
+                        <li><a href=""><i class="fa fa-twitter f-s-14"></i></a></li>
+                        <li><a href=""><i class="fa fa-instagram f-s-14"></i></a></li>
+                        <li><a href=""><i class="fa fa-dribbble f-s-14"></i></a></li>
+                        <li><a href=""><i class="fa fa-google-plus f-s-14"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #top-nav -->
+    
+        <!-- BEGIN #header -->
+        <div id="header" class="header" data-fixed-top="true">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN header-container -->
+                <div class="header-container">
+                    <!-- BEGIN navbar-header -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="header-logo">
+                            <a href="{% url 'base:home' %}">
+                                <span class="brand"></span>
+                                <span>STTIS</span>MOBILES
+                                <small>e-commerce frontend theme</small>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- END navbar-header -->
+                    <!-- BEGIN header-nav -->
+                    <div class="header-nav">
+                        <div class=" collapse navbar-collapse" id="navbar-collapse">
+                            <ul class="nav">
+                                <li><a href="{% url 'base:home' %}">Home</a></li>
+                                <li class="dropdown dropdown-full-width dropdown-hover">
+                                    <a href="#" data-toggle="dropdown">
+                                        Our Store 
+                                        <i class="fa fa-angle-down"></i>
+                                        <span class="arrow top"></span>
+                                    </a>
+                                    <!-- BEGIN dropdown-menu -->
+                                    <div class="dropdown-menu p-0">
+                                        <!-- BEGIN dropdown-menu-container -->
+                                        <div class="dropdown-menu-container">
+                                            <!-- BEGIN dropdown-menu-sidebar -->
+                                            <div class="dropdown-menu-sidebar">
+                                                <h4 class="title">Shop By Categories</h4>
+                                                <ul class="dropdown-menu-list">
+                                                    {% for c in nav_categories %}
+                                                    <li><a href="{% url 'shop:category_products' c.slug %}">{{c.name}}<i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            <!-- END dropdown-menu-sidebar -->
+                                            <!-- BEGIN dropdown-menu-content -->
+                                            <div class="dropdown-menu-content">
+                                                <h4 class="title">Shop By Popular Phone</h4>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <ul class="dropdown-menu-list">
+                                                            {% for i in pop_iphone %}
+                                                            <li><a href="{% url 'shop:product_detail' i.id %}"><i class="fa fa-fw fa-angle-right text-muted"></i>{{i.title}}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <ul class="dropdown-menu-list">
+                                                            {% for s in pop_samsung %}
+                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i>{{s.title}}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <ul class="dropdown-menu-list">
+                                                            {% for m in pop_microsoft %}
+                                                            <li><a href="{% url 'shop:product_detail' m.id %}"><i class="fa fa-fw fa-angle-right text-muted"></i>{{m.title}}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <ul class="dropdown-menu-list">
+                                                            {% for s in pop_sony %}
+                                                            <li><a href="{% url 'shop:product_detail' s.id %}"><i class="fa fa-fw fa-angle-right text-muted"></i>{{s.title}}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <h4 class="title">Shop By Brand</h4>
+                                                <ul class="dropdown-brand-list m-b-0">
+                                                    {% for b in nav_brands %}
+                                                    <li><a href="{% url 'shop:brand_products' b.id %}"><img src="{{b.image.url}}" alt="" /></a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            <!-- END dropdown-menu-content -->
+                                        </div>
+                                        <!-- END dropdown-menu-container -->
+                                    </div>
+                                    <!-- END dropdown-menu -->
+                                </li>
+                                <li class="dropdown dropdown-hover">
+                                    <a href="#" data-toggle="dropdown">
+                                        Accessories 
+                                        <i class="fa fa-angle-down"></i> 
+                                        <span class="arrow top"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        {% for c in nav_categories %}
+                                        <li><a href="{% url 'shop:category_products' c.slug %}">{{c.name}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'shop:new_arrival' %}">New Arrival</a></li>
+                                <li class="dropdown dropdown-hover">
+                                    <a href="#" data-toggle="dropdown">
+                                        Pages
+                                        <i class="fa fa-angle-down"></i> 
+                                        <span class="arrow top"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{% url 'base:home' %}">Home (Default)</a></li>
+                                        <li><a href="">Home (Fixed Header)</a></li>
+                                        <li><a href="">Home (Inverse Header)</a></li>
+                                        <li><a href="">Search Results</a></li>
+                                        <li><a href="">Product Page</a></li>
+                                        <li><a href="">Product Details Page</a></li>
+                                        <li><a href="">Checkout Cart</a></li>
+                                        <li><a href="">Checkout Shipping</a></li>
+                                        <li><a href="">Checkout Payment</a></li>
+                                        <li><a href="">Checkout Complete</a></li>
+                                        <li><a href="">My Account</a></li>
+                                        <li><a href="">Contact Us</a></li>
+                                        <li><a href="">About Us</a></li>
+                                        <li><a href="">FAQ</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown dropdown-hover">
+                                    <a href="#" data-toggle="dropdown">
+                                        <i class="fa fa-search search-btn"></i>
+                                        <span class="arrow top"></span>
+                                    </a>
+                                    <div class="dropdown-menu p-15">
+                                        <form action="{% url 'base:search' %}" method="get" name="search_form">
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Search" class="form-control bg-silver-lighter" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-inverse" type="submit"><i class="fa fa-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div> 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END header-nav -->
+                                         <!-- BEGIN header-nav -->
+                    <div class="header-nav">
+                        <ul class="nav pull-right">
+                            <li class="divider"></li>
+                            {% if user.is_authenticated %}
+                            <li class="dropdown dropdown-hover">
+                                <a href="" class="header-cart" data-toggle="dropdown">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    <span class="total">{{nav_cart|length}}</span>
+                                    <span class="arrow top"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-cart p-0">
+                                    <div class="cart-header">
+                                        <h4 class="cart-title">Shopping Bag ({{nav_cart|length}}) </h4>
+                                    </div>
+                                    <div class="cart-body">
+                                            {% for c in nav_cart %}
+                                        <ul class="cart-item">
+                                            <li>
+                                                <div class="cart-item-image"><img src="{{c.product.main_image}}" alt="" /></div>
+                                                <div class="cart-item-info">
+                                                    <h4>{{c.product.title}} - {{c.product.color}}</h4>
+                                                    <p class="price">Rs {{c.product.discounted_price}}</p>
+                                                </div>
+                                                <div class="cart-item-close">
+                                                    <a href="{% url 'cart:remove_cart' c.id %}" data-toggle="tooltip" data-title="Remove">&times;</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="cart-footer">
+                                        <div class="row row-space-10">
+                                            <div class="col-xs-6">
+                                                <a href="{% url 'cart:checkout_cart' %}" class="btn btn-default btn-block">View Cart</a>
+                                            </div>
+                                            <div class="col-xs-6">  
+                                                <a href="{% url 'cart:checkout_cart' %}" class="btn btn-inverse btn-block">Checkout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="{% url 'account:account' %}">
+                                    <img  src="{{ request.user.profile.image.url }}" class="user-img" alt="" />
+                                    <span class="hidden-md hidden-sm hidden-xs">My Account</span>
+                                </a>
+                            </li>
+                            {% else %}
+                           <li>
+                                <a href="{% url 'account:login' %}">
+                                    <span class="hidden-md hidden-sm hidden-xs">Sign-in / Login</span>
+                                </a>
+                            {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END header-nav -->
+                </div>
+                <!-- END header-container -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #header -->
+    
+        <!-- BEGIN #slider -->
+        <div id="slider" class="section-container p-0 bg-black-darker">
+            <!-- BEGIN carousel -->
+            <div id="main-carousel" class="carousel slide" data-ride="carousel">
+              <!-- BEGIN carousel-inner -->
+                <div class="carousel-inner"> 
+                    <!-- BEGIN item -->
+                     {% for s in slider1|slice:'1' %}
+                    <div class="item active">
+                        <img src="{% static 'assets/img/slider-1-cover.jpg' %}" class="bg-cover-img" alt="" />
+                        <div class="container">
+                            <img src="{{s.main_image}}" class="product-img right bottom fadeInRight animated" alt="" />
+                        </div>
+                        <div class="carousel-caption carousel-caption-left">
+                            <div class="container">
+                                <h3 class="title m-b-5 fadeInLeftBig animated">{{s.title}}</h3> 
+                                {% for d in s.descriptions.all|slice:'1' %}
+                                <p class="m-b-15 fadeInLeftBig animated">{{d.des|truncatechars:35}}</p>
+                                {% endfor %}
+                                <div class="price m-b-30 fadeInLeftBig animated"><small>from</small> <span>Rs {{s.discounted_price}}</span></div>
+                                <a href="{% url 'shop:product_detail' s.id %}" class="btn btn-outline btn-lg fadeInLeftBig animated">See Here</a>
+                            </div>
+                        </div>
+                    </div>
+                     {% endfor %}
+                    <!-- END item -->
+                     <!-- BEGIN item -->
+                     {% for s2 in slider2|slice:'1' %}   
+                    <div class="item">
+                        <img src="{% static 'assets/img/slider-2-cover.jpg' %}" class="bg-cover-img" alt="" />
+                        <div class="container">
+                            <img src="{{s2.main_image}}" class="product-img left bottom fadeInLeft animated" alt="" />
+                        </div>
+                        <div class="carousel-caption carousel-caption-right">
+                            <div class="container">
+                                <h3 class="title m-b-5 fadeInRightBig animated">{{s2.title}}</h3> 
+                                {% for d in s2.descriptions.all|slice:'1' %}
+                                <p class="m-b-15 fadeInRightBig animated">{{d.des|truncatechars:35}}</p>
+                                {% endfor %}
+                                <div class="price m-b-30 fadeInRightBig animated"><small>from</small> <span>Rs {{s2.discounted_price}}</span></div>
+                                <a href="{% url 'shop:product_detail' s2.id %}" class="btn btn-outline btn-lg fadeInRightBig animated">See Here</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- END item -->
+                    <!-- BEGIN item -->
+                     {% for s3 in slider3|slice:'1' %}
+                    <div class="item">
+                        <img src="{% static 'assets/img/slider-3-cover.jpg' %}" class="bg-cover-img" alt="" />
+                        <div class="container" >
+                            <img src="{{s3.main_image}}" alt="">
+                        </div>
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <h3 class="title m-b-5 fadeInDownBig animated">{{s3.title}}</h3> 
+                                {% for d in s3.descriptions.all|slice:'1' %}
+                                <p class="m-b-15 fadeInDownBig animated">{{d.des|slice:'20'}}<br />{{d.des|slice:'20:40'}}</p>
+                                {% endfor %}
+                                <div class="price fadeInDownBig animated"><small>from</small> <span> Rs {{s3.discounted_price}}</span></div>
+                                <a href="{% url 'shop:product_detail' s3.id %}" class="btn btn-outline btn-lg fadeInUpBig animated">See Here</a>
+                            </div>
+                        </div>
+                    </div>
+                     {% endfor %}
+                    <!-- END item -->
+                </div>
+                <!-- END carousel-inner -->
+                <a class="left carousel-control" href="#main-carousel" data-slide="prev"> 
+                    <i class="fa fa-angle-left"></i> 
+                </a>
+                <a class="right carousel-control" href="#main-carousel" data-slide="next"> 
+                    <i class="fa fa-angle-right"></i> 
+                </a>
+            </div>
+            <!-- END carousel -->
+        </div>
+        <!-- END #slider -->
+    
+        <!-- BEGIN #promotions -->
+        <div id="promotions" class="section-container bg-white">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN section-title -->
+                <h4 class="section-title clearfix">
+                    <a href="#" class="pull-right">SHOW ALL</a>
+                    Exclusive promotions
+                    <small>from 25 September 2016 - 1 January 2017</small>
+                </h4>
+                <!-- END section-title -->
+                <!-- BEGIN row -->
+                <div class="row row-space-10">
+                    <!-- BEGIN col-6 -->
+                    <div class="col-md-6">
+                        <!-- BEGIN promotion -->
+                        <div class="promotion promotion-lg bg-black-darker">
+                        {% for laptop in laptops|slice:'1' %}
+                            <div class="promotion-image text-right promotion-image-overflow-bottom">
+                                <img style="height: 10cm; width:max-content;" src="{{laptop.main_image}}" alt="" />
+                            </div>
+                            <div class="promotion-caption promotion-caption-inverse">
+                                <h4 class="promotion-title">{{laptop.title}}</h4>
+                                <div class="promotion-price"><small>from</small> Rs {{laptop.discounted_price}}</div>
+                                {% for d in laptop.descriptions.all|slice:'1' %}
+                                <p class="promotion-desc">{{d.des|truncatechars:35}}
+                                {% endfor %}
+                                </p>
+                                <a href="{% url 'shop:product_detail' laptop.id %}" class="promotion-btn">View More</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- END promotion -->
+                    </div>
+                    <!-- END col-6 -->
+                 <!-- BEGIN col-3 -->
+                    <div class="col-md-3 col-sm-6">
+                        <!-- BEGIN promotion -->
+                        <div class="promotion bg-blue">
+                        {% for watch in watches|slice:'1' %}
+                            <div class="promotion-image promotion-image-overflow-bottom promotion-image-overflow-top">
+                                <img src="{{watch.main_image}}" alt="" />
+                            </div>
+                            <div class="promotion-caption promotion-caption-inverse text-right">
+                                <h4 class="promotion-title">{{watch.title}}</h4>
+                                <div class="promotion-price"><small>from</small>Rs {{watch.discounted_price}}</div>
+                                {% for d in watch.descriptions.all|slice:'1' %}
+                                <p class="promotion-desc">{{d.des|truncatechars:39}}</p>
+                                {% endfor %}
+                                <a href="{% url 'shop:product_detail' watch.id %}" class="promotion-btn">View More</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- END promotion -->
+                        <!-- BEGIN promotion -->
+                        <div class="promotion bg-silver">
+                        {% for mobile in mobiles|slice:'1:2' %}
+                            <div class="promotion-image text-center promotion-image-overflow-bottom">
+                                <img style="height: 3cm;width:4cm;" src="{{mobile.main_image}}" alt="" />
+                            </div>
+                            <div class="promotion-caption text-center">
+                                <h4 class="promotion-title">{{mobile.title}}</h4>
+                                <div class="promotion-price"><small>from</small>Rs {{mobile.discounted_price}}</div>
+                                {% for d in mobile.descriptions.all|slice:'1' %}
+                                <p class="promotion-desc">{{d.des|truncatechars:38}}</p>
+                                {% endfor %}
+                                <a href="{% url 'shop:product_detail' mobile.id  %}" class="promotion-btn">View More</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- END promotion -->
+                    </div>
+                    <!-- END col-3 -->
+                    <!-- BEGIN col-3 -->
+                    <div class="col-md-3 col-sm-6">
+                             <!-- BEGIN promotion -->
+                        <div class="promotion bg-silver">
+                            {% for tablet in tablets|slice:'1:2' %}
+                            <div class="promotion-image promotion-image-overflow-right promotion-image-overflow-bottom text-right">
+                                <img src="{{tablet.main_image}}" alt="" />
+                            </div>
+                            <div class="promotion-caption text-center">
+                                <h4 class="promotion-title">{{tablet.title}}</h4>
+                                <div class="promotion-price"><small>from</small>Rs {{tablet.discounted_price}}</div>
+                                {% for d in tablet.descriptions.all|slice:'1' %}
+                                <p class="promotion-desc">{{d.des|truncatechars:39}}</p>
+                                {% endfor %}
+                                <a href="{% url 'shop:product_detail' tablet.id %}" class="promotion-btn">View More</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- END promotion -->
+                         <!-- BEGIN promotion -->
+                        <div class="promotion bg-black">
+                        {% for tv in tvs|slice:'1' %}
+                            <div class="promotion-image text-right">
+                                <img src="{{tv.main_image}}" alt="" />
+                            </div>
+                            <div class="promotion-caption promotion-caption-inverse">
+                                <h4 class="promotion-title">{{tv.title}}</h4>
+                                <div class="promotion-price"><small>from</small>Rs {{tv.discounted_price}}</div>
+                                {% for d in tv.descriptions.all|slice:'1' %}
+                                <p class="promotion-desc">{{d.des|truncatechars:40}}</p>
+                                {% endfor %}
+                                <a href="{% url 'shop:product_detail' tv.id %}" class="promotion-btn">View More</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- END promotion -->
+                    </div>
+                    <!-- END col-3 -->
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #promotions -->
+    
+        <!-- BEGIN #trending-items -->
+        <div id="trending-items" class="section-container bg-silver">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN section-title -->
+            <h4 class="section-title clearfix">
+                {% if trendings.has_next %}
+                <a href="?page={{trendings.next_page_number}}" class="pull-right m-l-5"><i class="fa fa-angle-right f-s-18"></i></a>
+                {% endif %}
+                {% if trendings.has_previous %}
+                <a href="?page={{trendings.previous_page_number}}" class="pull-right"><i class="fa fa-angle-left f-s-18"></i></a>
+                {% endif %}
+                Trending Items
+                <small>Shop and get your favourite items at amazing prices!</small>
+            </h4>
+                <!-- END section-title -->
+            
+                <!-- BEGIN row -->
+            {% for trending in trendings %}
+                <div class="col-md-2 col-sm-4">
+                    <!-- BEGIN item -->
+                    <div class="item item-thumbnail">
+                        <a href="{% url 'shop:product_detail' trending.id %}" class="item-image">
+                            <img src="{{trending.main_image}}" alt="" />
+                            <div class="discount">{{trending.percent_off}}% Off</div>
+                        </a>
+                        <div class="item-info">
+                            <h4 class="item-title">
+                                <a href="{% url 'shop:product_detail' trending.id %}">{{trending.title}}</a>
+                            </h4>
+                            {% for d in trending.descriptions.all|slice:'1' %}
+                            <p class="item-desc">{{d.des|truncatechars:15}}</p>
+                            {% endfor %}
+                            <div class="item-price">Rs {{trending.price}}</div>
+                            <div class="item-discount-price">Rs {{trending.discounted_price}}</div>
+                        </div>
+                    </div>
+                    <!-- END item -->
+                </div>
+                {% endfor %}
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #trending-items -->
+    
+       <!-- BEGIN #mobile-list -->
+        <div id="mobile-list" class="section-container bg-silver p-t-0">
+            <!-- BEGIN container -->
+            <div class="container">
+            <!-- BEGIN section-title -->
+            <h4 class="section-title clearfix">
+                {% for mobile in mobile_cat %}
+                <a href="{% url 'shop:category_products' mobile.slug %}" class="pull-right">SHOW ALL</a>
+                {{mobile.name}}s
+                {% endfor %}
+                <small>Shop and get your favourite phone at amazing prices!</small>
+            </h4>
+            <!-- END section-title -->
+                <!-- BEGIN category-container -->
+                <div class="category-container">
+                    <!-- BEGIN category-sidebar -->
+                    <div class="category-sidebar">
+                    <ul class="category-list">
+                    <li class="list-header">Top Categories</li>
+                        {% for b in mobile_b %}
+                            <li><a href="{% url 'shop:mobile_brand' b|slugify %}">{{b}}</a></li>
+                        {% endfor %}
+                        {% for mobile in mobile_cat %}
+                            <li><a href="{% url 'shop:category_products' mobile.slug %}">All Brands</a></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- END category-sidebar -->
+                    <!-- BEGIN category-detail -->
+                    <div class="category-detail">
+                        <!-- BEGIN category-item -->
+                <a href="" class="category-item full">
+                    <div class="item">
+                        {% for mobile in mobiles|slice:'1' %}
+                        <div class="item-cover">
+                            <img src="{{mobile.main_image}}" alt="" />
+                        </div>
+                        <div class="item-info bottom">
+                            <h4 class="item-title">{{mobile.title}}</h4>
+                            {% for d in mobile.descriptions.all|slice:'1' %}
+                            <p class="item-desc">{{d.des|truncatechars:50}}</p>
+                            {% endfor %}
+                            <div class="item-price">Rs {{mobile.price}}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </a>
+                        <!-- END category-item -->
+                        <!-- BEGIN category-item -->
+                        <div class="category-item list">
+                            <!-- BEGIN item-row -->
+                            <div class="item-row">  
+                         {% for mobile in mobiles|slice:':3' %}
+                        <div class="item item-thumbnail">
+                            <a href="{% url 'shop:product_detail' mobile.id %}" class="item-image">
+                                <img src="{{mobile.main_image}}" alt="" />
+                                <div class="discount">{{mobile.percent_off}}% OFF</div>
+                            </a>
+                            <div class="item-info">
+                                <h4 class="item-title"><a href="{% url 'shop:product_detail' mobile.pk  %}">{{mobile.title}}</a></h4>
+                                {% for d in mobile.descriptions.all|slice:'1' %}
+                                <p class="item-desc">{{d.des|truncatechars:25}}</p>
+                                {% endfor %}
+                                <div class="item-price">Rs {{mobile.discounted_price}}</div>
+                                <div class="item-discount-price">Rs {{mobile.price}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                            </div>
+                            <!-- END item-row -->
+                            <!-- BEGIN item-row -->
+                            <div class="item-row">
+                      {% for mobile in mobiles|slice:'3:6' %}
+                        <div class="item item-thumbnail">
+                            <a href="{% url 'shop:product_detail' mobile.id %}" class="item-image">
+                                <img src="{{mobile.main_image}}" alt="" />
+                                <div class="discount">{{mobile.percent_off}}% OFF</div>
+                            </a>
+                            <div class="item-info">
+                                <h4 class="item-title"><a href="{% url 'shop:product_detail' mobile.pk  %}">{{mobile.title}}</a></h4>
+                                {% for d in mobile.descriptions.all|slice:'1' %}
+                                <p class="item-desc">{{d.des|truncatechars:25}}</p>
+                                {% endfor %}
+                                <div class="item-price">Rs {{mobile.discounted_price}}</div>
+                                <div class="item-discount-price">Rs {{mobile.price}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                            </div>
+                            <!-- END item-row -->
+                        </div>
+                        <!-- END category-item -->
+                    </div>
+                    <!-- END category-detail -->
+                </div>
+                <!-- END category-container -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #mobile-list -->
+    
+      <!-- BEGIN #tablet-list -->
+        <div id="tablet-list" class="section-container bg-silver p-t-0">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN section-title -->
+                <h4 class="section-title clearfix">
+                {% for tab in tab_cat %}
+                <a href="{% url 'shop:category_products' tab.slug %}" class="pull-right">SHOW ALL</a>
+                {{tab.name}}s
+                {% endfor %}
+                <small>Shop and get your favourite tablet at amazing prices!</small>
+                </h4>
+                <!-- END section-title -->
+                <!-- BEGIN category-container -->
+                <div class="category-container">
+                    <!-- BEGIN category-sidebar -->
+                    <div class="category-sidebar">
+                        <ul class="category-list">
+                        <li class="list-header">Top Categories</li>
+                        {% for tablet in tab_b %}
+                        <li><a href="{% url 'shop:tablet_brand' tablet|slugify %}">{{tablet}}</a></li>
+                        {% endfor %}
+                        {% for tab in tab_cat %}
+                        <li><a href="{% url 'shop:category_products' tab.slug %}">All Brands</a></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- END category-sidebar -->
+                    <!-- BEGIN category-detail -->
+                    <div class="category-detail">
+                        <!-- BEGIN category-item -->
+                        <a href="" class="category-item full">
+                            <div class="item">
+                         {% for tablet in tablets|slice:'1' %}
+                            <div class="item-cover">
+                                <img src="{{tablet.main_image}}" alt="" />
+                            </div>
+                            <div class="item-info bottom">
+                                <h4 class="item-title">{{tablet.title}}</h4>
+                                {% for d in tablet.descriptions.all|slice:'1' %}
+                                <p class="item-desc">{{d.des|truncatechars:50}}</p>
+                                {% endfor %}
+                                <div class="item-price">Rs {{tablet.price}}</div>
+                            </div>
+                        {% endfor %}
+                            </div>
+                        </a>
+                        <!-- END category-item -->
+                        <!-- BEGIN category-item -->
+                        <div class="category-item list">
+                            <!-- BEGIN item-row -->
+                            <div class="item-row">
+                        {% for tablet in tablets|slice:':3' %}
+                        <div class="item item-thumbnail">
+                            <a href="{% url 'shop:product_detail' tablet.id %}" class="item-image">
+                                <img src="{{tablet.main_image}}" alt="" />
+                                <div class="discount">{{tablet.percent_off}}% OFF</div>
+                            </a>
+                            <div class="item-info">
+                                <h4 class="item-title"><a href="{% url 'shop:product_detail' tablet.pk %}">{{tablet.title}}</a></h4>
+                                {% for d in tablet.descriptions.all|slice:'1' %}
+                                <p class="item-desc">{{d.des|truncatechars:20}}</p>
+                                {% endfor %}
+                                <div class="item-price">Rs {{tablet.discounted_price}}</div>
+                                <div class="item-discount-price">Rs {{tablet.price}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                            </div>
+                            <!-- END item-row -->
+                            <!-- BEGIN item-row -->
+                            <div class="item-row">
+                    {% for tablet in tablets|slice:'3:6' %}
+                        <div class="item item-thumbnail">
+                            <a href="{% url 'shop:product_detail' tablet.id %}" class="item-image">
+                                <img src="{{tablet.main_image}}" alt="" />
+                                <div class="discount">{{tablet.percent_off}}% OFF</div>
+                            </a>
+                            <div class="item-info">
+                                <h4 class="item-title"><a href="{% url 'shop:product_detail' tablet.pk %}">{{tablet.title}}</a></h4>
+                                {% for d in tablet.descriptions.all|slice:'1' %}
+                                <p class="item-desc">{{d.des|truncatechars:20}}</p>
+                                {% endfor %}
+                                <div class="item-price">Rs {{tablet.discounted_price}}</div>
+                                <div class="item-discount-price">Rs {{tablet.price}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                            </div>
+                            <!-- END item-row -->
+                        </div>
+                        <!-- END category-item -->
+                    </div>
+                    <!-- END category-detail -->
+                </div>
+                <!-- END category-container -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #tablet-list -->
+    
+        <!-- BEGIN #policy -->
+        <div id="policy" class="section-container p-t-30 p-b-30">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <!-- BEGIN policy -->
+                        <div class="policy">
+                            <div class="policy-icon"><i class="fa fa-truck"></i></div>
+                            <div class="policy-info">
+                                <h4>Free Delivery Over $100</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                        </div>
+                        <!-- END policy -->
+                    </div>
+                    <!-- END col-4 -->
+                    <!-- BEGIN col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <!-- BEGIN policy -->
+                        <div class="policy">
+                            <div class="policy-icon"><i class="fa fa-shield"></i></div>
+                            <div class="policy-info">
+                                <h4>1 Year Warranty For Phones</h4>
+                                <p>Cras laoreet urna id dui malesuada gravida. <br />Duis a lobortis dui.</p>
+                            </div>
+                        </div>
+                        <!-- END policy -->
+                    </div>
+                    <!-- END col-4 -->
+                    <!-- BEGIN col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <!-- BEGIN policy -->
+                        <div class="policy">
+                            <div class="policy-icon"><i class="fa fa-user-md"></i></div>
+                            <div class="policy-info">
+                                <h4>6 Month Warranty For Accessories</h4>
+                                <p>Fusce ut euismod orci. Morbi auctor, sapien non eleifend iaculis.</p>
+                            </div>
+                        </div>
+                        <!-- END policy -->
+                    </div>
+                    <!-- END col-4 -->
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #policy -->
+    
+        <!-- BEGIN #subscribe -->
+        <div id="subscribe" class="section-container bg-silver p-t-30 p-b-30">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-6 -->
+                    <div class="col-md-6 col-sm-6">
+                        <!-- BEGIN subscription -->
+                        <div class="subscription">
+                            <div class="subscription-intro">
+                                <h4> LET'S STAY IN TOUCH</h4>
+                                <p>Get updates on sales specials and more</p>
+                            </div>
+                            <div class="subscription-form">
+                                <form name="subscription_form" action="index.html" method="POST">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="email" placeholder="Enter Email Address" />
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-inverse"><i class="fa fa-angle-right"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- END subscription -->
+                    </div>
+                    <!-- END col-6 -->
+                    <!-- BEGIN col-6 -->
+                    <div class="col-md-6 col-sm-6">
+                        <!-- BEGIN social -->
+                        <div class="social">
+                            <div class="social-intro">
+                                <h4>FOLLOW US</h4>
+                                <p>We want to hear from you!</p>
+                            </div>
+                            <div class="social-list">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-dribbble"></i></a>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                        </div>
+                        <!-- END social -->
+                    </div>
+                    <!-- END col-6 -->
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #subscribe -->
+    
+        <!-- BEGIN #footer -->
+        <div id="footer" class="footer">
+            <!-- BEGIN container -->
+            <div class="container">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-3 -->
+                    <div class="col-md-3">
+                        <h4 class="footer-header">ABOUT US</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec tristique dolor, ac efficitur velit. Nulla lobortis tempus convallis. Nulla aliquam lectus eu porta pulvinar. Mauris semper justo erat. 
+                        </p>
+                        <p>
+                            Vestibulum porttitor lorem et vestibulum pharetra. Phasellus sit amet mi congue, hendrerit mi ut, dignissim eros.
+                        </p>
+                    </div>
+                    <!-- END col-3 -->
+                    <!-- BEGIN col-3 -->
+                    <div class="col-md-3">
+                        <h4 class="footer-header">RELATED LINKS</h4>
+                        <ul class="fa-ul">
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Shopping Help</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Terms of Use</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Contact Us</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Careers</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Payment Method</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Sales & Refund</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Sitemap</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Privacy & Policy</a></li>
+                        </ul>
+                    </div>
+                    <!-- END col-3 -->
+                    <!-- BEGIN col-3 -->
+                                        <div class="col-md-3">
+                        <h4 class="footer-header">LATEST PRODUCT</h4>
+                    <ul class="list-unstyled list-product">
+                        {% for p in footer_p|slice:':4' %}
+                        <li>
+                            <div class="image">
+                                <img src="{{p.main_image}}" alt="" />
+                            </div>
+                            <div class="info">
+                                <h4 class="info-title">{{p.title}}</h4>
+                                <div class="price">Rs {{p.price}}</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    </div>
+                    <!-- END col-3 -->
+                    <!-- BEGIN col-3 -->
+                    <div class="col-md-3">
+                        <h4 class="footer-header">OUR CONTACT</h4>
+                        <address>
+                            <strong>Twitter, Inc.</strong><br />
+                            1355 Market Street, Suite 900<br />
+                            San Francisco, CA 94103<br /><br />
+                            <abbr title="Phone">Phone:</abbr> (123) 456-7890<br />
+                            <abbr title="Fax">Fax:</abbr> (123) 456-7891<br />
+                            <abbr title="Email">Email:</abbr> <a href="mailto:sales@myshop.com">sales@myshop.com</a><br />
+                            <abbr title="Skype">Skype:</abbr> <a href="skype:myshop">myshop</a>
+                        </address>
+                    </div>
+                    <!-- END col-3 -->
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #footer -->
+    
+        <!-- BEGIN #footer-copyright -->
+        <div id="footer-copyright" class="footer-copyright">
+            <!-- BEGIN container -->
+            <div class="container">
+                <div class="payment-method">
+                    <img src="{% static 'assets/img/payment_method.png' %}" alt="" />
+                </div>
+                <div class="copyright">
+                    Copyright &copy; 2016 SeanTheme. All rights reserved.
+                </div>
+            </div>
+            <!-- END container -->
+        </div>
+        <!-- END #footer-copyright -->
+    </div>
+    <!-- END #page-container -->
+    
+    <!-- begin theme-panel -->
+    <div class="theme-panel">
+        <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
+        <div class="theme-panel-content">
+            <ul class="theme-list clearfix">
+                <li><a href="javascript:;" class="bg-purple" data-theme="purple" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple">&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-blue" data-theme="blue" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue">&nbsp;</a></li>
+                <li class="active"><a href="javascript:;" class="bg-green" data-theme="default" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default">&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-orange" data-theme="orange" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange">&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-red" data-theme="red" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- end theme-panel -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'assets/plugins/jquery/jquery-1.9.1.min.js' %}"></script>
+	<script src="{% static 'assets/plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
+	<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="{% static 'assets/plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+	<script src="{% static 'assets/js/apps.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<script>
+	    $(document).ready(function() {
+	        App.init();
+	    });
+	</script>
+</body>
+</html>

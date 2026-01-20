@@ -1,0 +1,20 @@
+.rating-selection i {
+    font-size: 22px;
+    color: #ddd;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.rating-selection i.active {
+    color: #ffc107;
+}
+
+.rating-comment {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #666;
+}
+
+.hide {
+    display: none;
+}

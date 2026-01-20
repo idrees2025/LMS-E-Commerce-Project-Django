@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div id="product" class="section-container p-t-20">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN breadcrumb -->
+            <ul class="breadcrumb m-b-10 f-s-12">
+                <li><a href="{% url 'base:home' %}">Home</a></li>
+            </ul>
+            <!-- END breadcrumb -->
+            <!-- BEGIN product -->
+            <div class="product">
+                <!-- BEGIN product-detail -->
+                <div class="product-detail">
+                    <!-- BEGIN product-image -->
+                    <div class="product-image">
+                        <!-- BEGIN product-thumbnail -->
+                        <div class="product-thumbnail">
+                            <ul class="product-thumbnail-list">
+                                <li class="active">
+                                    {% for img in product.images.all %}
+                                    <a href="{{img.image.url}}" data-click="show-main-image"data-url="{{img.image.url}}">
+                                    <img src="{{img.image.url }}" alt="" /></a>
+                                    {% endfor %}  </li>
+                        </ul>
+                        </div>
+                        <!-- END product-thumbnail -->
+                        <!-- BEGIN product-main-image -->
+                        <div class="product-main-image" data-id="main-image">
+                            <img src="{{product.main_image}}" alt="" />
+                        </div>
+                        <!-- END product-main-image -->
+                    </div>
+                    <!-- END product-image -->
+                    <!-- BEGIN product-info -->
+                    <div class="product-info">
+                        <!-- BEGIN product-info-header -->
+                        <div class="product-info-header">
+                            <h1 class="product-title"><span class="label label-success">{{product.percent_off}}% OFF</span> {{product.title}} </h1>
+                        </div>
+                        <!-- END product-info-header -->
+                        <!-- BEGIN product-warranty -->
+                        <div class="product-warranty">
+                            <div class="pull-right">Availability: {{product.stock}} in stock</div>
+                            <div><b>{{product.varrianty}}</b> Local Manufacturer Warranty</div>
+                        </div>
+                        <!-- END product-warranty -->
+                        <!-- BEGIN product-info-list -->
+                        <ul class="product-info-list">
+                            {% for f in product.feautures.all %}
+                            <li><i class="fa fa-circle"></i>{{f.value|truncatechars:30}}</li>
+                            {% endfor %}
+                        </ul>
+                        <!-- END product-info-list -->
+                        <!-- BEGIN product-social -->
+                        <div class="product-social">
+                            <ul>
+                                <li><a href="javascript:;" class="facebook" data-toggle="tooltip" data-trigger="hover"
+                                        data-title="Facebook" data-placement="top"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="javascript:;" class="twitter" data-toggle="tooltip" data-trigger="hover"
+                                        data-title="Twitter" data-placement="top"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="javascript:;" class="google-plus" data-toggle="tooltip" data-trigger="hover"
+                                        data-title="Google Plus" data-placement="top"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                                <li><a href="javascript:;" class="whatsapp" data-toggle="tooltip" data-trigger="hover"
+                                        data-title="Whatsapp" data-placement="top"><i class="fa fa-whatsapp"></i></a></li>
+                                <li><a href="javascript:;" class="tumblr" data-toggle="tooltip" data-trigger="hover"
+                                        data-title="Tumblr" data-placement="top"><i class="fa fa-tumblr"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- END product-social -->
+                        <!-- BEGIN product-purchase-container -->
+                        <div class="product-purchase-container">
+                            <div class="product-discount">
+                                <span class="discount">Rs {{product.price}}</span>
+                            </div>
+                            <div class="product-price">
+                                <div class="price">Rs {{product.discounted_price}}</div>
+                            </div>
+                            <a class="btn btn-inverse btn-lg" href="{% url 'cart:add_cart' product.pk %}">ADD TO CART </a>
+                        </div>
+                        <!-- END product-purchase-container -->
+                    </div>
+                    <!-- END product-info -->
+                </div>
+                <!-- END product-detail -->
+                <!-- BEGIN product-tab -->
+                <div class="product-tab">
+                    <!-- BEGIN #product-tab -->
+                    <ul id="product-tab" class="nav nav-tabs">
+                        <li class="active"><a href="#product-desc" data-toggle="tab">Product Description</a></li>
+                        <li class=""><a href="#product-info" data-toggle="tab">Additional Information</a></li>
+                        <li class=""><a href="#product-reviews" data-toggle="tab">Rating & Reviews ({{reviews|length}})</a></li>
+                    </ul>
+                    <!-- END #product-tab -->
+                    <!-- BEGIN #product-tab-content -->
+                    <div id="product-tab-content" class="tab-content">
+                        <!-- BEGIN #product-desc -->
+                        <div class="tab-pane fade active in" id="product-desc">
+                            <!-- BEGIN product-desc -->
+                             {% for d in product.descriptions.all|slice:'1' %}
+                            <div class="product-desc">
+                                <div class="image">
+                                        <img src="{{ d.image.url }}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <h4>{{d.title}}</h4>
+                                    <p>
+                                       {{d.des}}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- END product-desc -->
+                            <!-- BEGIN product-desc -->
+                            {% for d in product.descriptions.all|slice:'1:2' %}
+                            <div class="product-desc right">
+                                <div class="image">
+                                    <img src="{{ d.image.url }}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <h4>{{d.title}}</h4>
+                                    <p>
+                                        {{d.des}}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}           
+                            <!-- END product-desc -->
+                            <!-- BEGIN product-desc -->
+                            {% for d in product.descriptions.all|slice:'2:3' %}
+                            <div class="product-desc">
+                                <div class="image">
+                                    <img src="{{ d.image.url }}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <h4>{{d.title}}</h4>
+                                    <p>
+                                        {{d.des}}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}           
+                            <!-- END product-desc -->
+                            <!-- BEGIN product-desc -->
+                            {% for d in product.descriptions.all|slice:'3:4' %}
+                            <div class="product-desc right">
+                                <div class="image">
+                                    <img src="{{ d.image.url }}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <h4>{{d.title}}</h4>
+                                    <p>
+                                        {{d.des}}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}           
+                            <!-- END product-desc -->
+                            <!-- BEGIN product-desc -->
+                            {% for d in product.descriptions.all|slice:'4:5' %}
+                            <div class="product-desc">
+                                <div class="image">
+                                    <img src="{{ d.image.url }}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <h4>{{d.title}}</h4>
+                                    <p>
+                                       {{d.des}}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}           
+                            <!-- END product-desc -->
+                        </div>
+                        <!-- END #product-desc -->
+                        <!-- BEGIN #product-info -->
+                        <div class="tab-pane fade" id="product-info">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-responsive">
+                                <!-- BEGIN table-product -->
+                                <table class="table table-product table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for f in product.feautures.all %}                                          
+                                        <tr>
+                                            <td class="field">{{f.title}}</td>
+                                            <td>
+                                            {{f.value}}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <!-- END table-product -->
+                            </div>
+                            <!-- END table-responsive -->
+                        </div>
+                        <!-- END #product-info -->
+                        <!-- BEGIN #product-reviews -->
+                        <div class="tab-pane fade" id="product-reviews">
+                            <!-- BEGIN row -->
+                            <div class="row row-space-30">
+                                <!-- BEGIN col-7 -->
+                                <div class="col-md-7">
+                                    <!-- BEGIN review -->
+                                     {% if reviews %}
+                                     {% for review in reviews %}
+                                    <div class="review">
+                                        <div class="review-info">
+                                            <div class="review-icon"><img src="{{review.profile.image.url}}" alt="" /></div>
+                                            <div class="review-rate">
+                                    <ul class="review-star">
+                                        {% for i in "12345" %}
+                                            <li class="{% if forloop.counter <= review.rating %}active{% endif %}">
+                                            <i class="fa {% if forloop.counter <= review.rating %}fa-star{% else %}fa-star-o{% endif %}"></i>
+                                                </li>
+                                        {% endfor %}
+                                            </ul>
+                                                ({{review.rating}}/5)
+                                            </div>
+                                            <div class="review-name">{{review.profile.user.username}}</div>
+                                            <div class="review-date">{{review.created_at}}</div>
+                                        </div>
+                                        <div class="review-title">
+                                            {{review.title}}
+                                        </div>
+                                        <div class="review-message">
+                                         {{review.review}}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                    <!-- END review -->
+                                </div>
+                                <!-- END col-7 -->
+                                <!-- BEGIN col-5 -->
+                                <div class="col-md-5">
+                                        <!-- BEGIN review-form -->
+                                         {% if request.user.is_authenticated %}
+                                         {% if not request.user.review %}
+                                           
+                                        <div class="review-form">
+                                            <form action="" name="review_form" method="POST">
+                                                {% csrf_token %}
+                                                <h2>Write a review</h2>
+                                                <div class="form-group">
+                                                    <label for="{{form.title.id_for_label}}">Title <span class="text-danger">*</span></label>
+                                                    <input type="{{form.title.type}}" class="form-control" id="{{form.title.id}}" name="{{form.title.name}}" />
+                                                    {% if form.title.errors %}
+                                                      <span style="color: red;" >{{form.title.errors}}</span>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="{{form.review.id_for_label}}">Review <span class="text-danger">*</span></label>
+                                                    <textarea class="form-control" rows="{{form.review.rows}}" name="{{form.review.name}}" id="{{form.review.id}}"></textarea>
+                                                    {% if form.review.errors %}
+                                                      <span style="color: red;" >{{form.review.errors}}</span>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="{{form.rating.id_for_label}}">Rating<span class="text-danger">*</span></label>
+                                                    <div class="rating rating-selection">
+                                                        <i class="fa fa-star-o" data-value="1"></i>
+                                                        <i class="fa fa-star-o" data-value="2"></i>
+                                                        <i class="fa fa-star-o" data-value="3"></i>
+                                                        <i class="fa fa-star-o" data-value="4"></i>
+                                                        <i class="fa fa-star-o" data-value="5"></i>
+                                                        <span class="rating-comment">
+                                                            <span class="rating-comment-tooltip">Click to rate</span>
+                                                        </span>
+                                                    </div>
+                                                    {% if form.rating.errors %}
+                                                      <span style="color: red;" >{{form.rating.errors}}</span>
+                                                    {% endif %}
+                                                    <select name="rating" class="hide">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>       
+                                                <button type="submit" class="btn btn-inverse btn-lg">Submit Review</button>
+                                            </form>
+                                        </div>
+                                        {% else %}
+                                        <h3>You alredy submit review</h3>
+                                        {% endif %}
+                                        {% else %}
+                                        <div>
+                                            <h3>Please go and login noew <a href="{% url 'account:login' %}">Login</a> </h3>
+                                        </div>
+                                         {% endif %}
+
+                                        <!-- END review-form --> 
+                                </div>
+                                <!-- END col-5 -->
+                            </div>
+                            <!-- END row -->
+                        </div>
+                        <!-- END #product-reviews -->
+                    </div>
+                    <!-- END #product-tab-content -->
+                </div>
+                <!-- END product-tab -->
+            </div>
+            <!-- END product -->
+            <!-- BEGIN similar-product -->
+            <h4 class="m-b-15 m-t-30">You Might Also Like</h4>
+                {% for relate in related|slice:'0:5' %}
+                <div class="col-md-2 col-sm-4">
+                    <!-- BEGIN item -->
+                    <div class="item item-thumbnail">
+                        <a href="{% url 'shop:product_detail' relate.id %}" class="item-image">
+                            <img src="{{relate.main_image}}" alt="">
+                            <div class="discount">{{relate.percent_off}}% OFF</div>
+                        </a>
+                        <div class="item-info">
+                            <h4 class="item-title">
+                                <a href="{% url 'shop:product_detail' relate.pk %}">{{relate.title}}<br></a>
+                            </h4>
+                            <p class="item-desc">{{relate.des|slice:':15'}}</p>
+                            <div class="item-price">$ {{relate.discounted_price}}</div>
+                            <div class="item-discount-price">$ {{relate.price}}</div>
+                        </div>
+                    </div>
+                    <!-- END item -->
+                </div>
+                {% endfor %}
+            </div>
+            <!-- END similar-product -->
+        </div>
+        <!-- END container -->
+    </div>
+{% endblock content %}

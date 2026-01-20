@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% load static %}
+{% load query_transform %}
+{% block content %}
+    <div id="page-header" class="section-container page-header-container bg-black">
+        <!-- BEGIN page-header-cover -->
+        <div class="page-header-cover">
+            <img src="{% static 'assets/img/search-cover.jpg' %}" alt="" />
+        </div>
+        <!-- END page-header-cover -->
+        <!-- BEGIN container -->
+        <div class="container">
+            {% if keyword %}
+            <h1 class="page-header"><b>{{keyword|upper}}</b></h1>
+            {% else %}
+            <h1 class="page-header"><b>{{title|upper}}</b></h1>
+            {% endif %}
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- BEGIN #page-header -->
+    
+    <!-- BEGIN search-results -->
+    <div id="search-results" class="section-container bg-silver">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN search-container -->
+            <div class="search-container">
+                <!-- BEGIN search-content -->
+                <div class="search-content">
+                    <!-- BEGIN search-toolbar -->
+                    <div class="search-toolbar">
+                        <!-- BEGIN row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>We found {{products|length}} Items for "{% if keyword %}
+                                  {{keyword}}
+                                {% else %}{{title}} {% endif %}"</h4>
+                            </div>
+                            <!-- END col-6 -->
+                            <!-- BEGIN col-6 -->
+                            <div class="col-md-6 text-right">
+                                <ul class="sort-list">
+                                    <li class="{% if sort_by == 'popular' %}active{% endif %}">
+                                        <a href="?{% query_transform request sort='popular' %}">Popular</a>
+                                    </li>
+                                    <li class="{% if sort_by == 'new_arrival' %}active{% endif %}">
+                                        <a href="?{% query_transform request sort='new_arrival' %}">New Arrival</a>
+                                    </li>
+                                    <li class="{% if sort_by == '-percent_off' %}active{% endif %}">
+                                        <a href="?{% query_transform request sort='-percent_off' %}">Discount</a>
+                                    </li>
+                                    <li class="{% if sort_by == 'discounted_price' %}active{% endif %}">
+                                        <a href="?{% query_transform request sort='discounted_price' %}">Price</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END col-6 -->
+                        </div>
+                        <!-- END row -->
+                    </div>
+                    <!-- END search-toolbar -->
+                    <!-- BEGIN search-item-container -->
+                    <div class="search-item-container">
+                        <div class="item-row">
+                            <!-- BEGIN item -->
+                             {% for product in products|slice:'3' %}                             
+                            <div class="item item-thumbnail">
+                                <a href="{% url 'shop:product_detail' product.id %}" class="item-image">
+                                    <img src="{{product.main_image}}" alt="" />
+                                    <div class="discount">{{product.percent_off}}% OFF</div>
+                                </a>
+                                <div class="item-info">
+                                    <h4 class="item-title">
+                                        <a href="{% url 'shop:product_detail' product.pk %}">{{product.title|slice:'0:12'}} <br/> {{product.title|slice:'13:'}}</a>
+                                    </h4>
+                                    {% for d in product.descriptions.all|slice:'1' %}
+                                    <p class="item-desc">{{d.des|truncatechars:30}}</p>
+                                    {% endfor %}
+                                    <div class="item-price">Rs {{product.discounted_price}}</div>
+                                    <div class="item-discount-price">Rs {{product.price}}</div>
+                                </div>
+                            </div>
+                            {% endfor %}      
+                        </div>
+                        <div class="item-row">
+                            <!-- BEGIN item -->
+                             {% for product in products|slice:'3:6'%}
+                            <div class="item item-thumbnail">
+                                <a href="{% url 'shop:product_detail' product.id %}" class="item-image">
+                                    <img src="{{product.main_image}}" alt="" />
+                                    <div class="discount">{{product.percent_off}}% OFF</div>
+                                </a>
+                                <div class="item-info">
+                                    <h4 class="item-title">
+                                        <a href="{% url 'shop:product_detail' product.id %}">{{product.title|slice:'0:12'}}<br >{{product.title|slice:'12:'}}</a>
+                                    </h4>
+                                    {% for d in product.descriptions.all|slice:'1' %}
+                                    <p class="item-desc">{{d.des|truncatechars:30}}</p>
+                                    {% endfor %}
+                                    <div class="item-price">Rs {{product.discounted_price}}</div>
+                                    <div class="item-discount-price">Rs {{product.price}}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="item-row">
+                            <!-- BEGIN item -->
+                             {% for product in products|slice:'6:9'%}
+                            <div class="item item-thumbnail">
+                                <a href="{% url 'shop:product_detail' product.pk %}" class="item-image">
+                                    <img src="{{product.main_image}}" alt="" />
+                                    <div class="discount">{{product.percent_off}}% OFF</div>
+                                </a>
+                                <div class="item-info">
+                                    <h4 class="item-title">
+                                        <a href="{% url 'shop:product_detail' product.pk %}">{{product.title|slice:'0:12'}}<br >{{product.title|slice:'12:'}}</a>
+                                    </h4>
+                                    {% for d in product.descriptions.all|slice:'1' %}
+                                    <p class="item-desc">{{d.des|truncatechars:30}}</p>
+                                    {% endfor %}
+                                    <div class="item-price">Rs {{product.discounted_price}}</div>
+                                    <div class="item-discount-price">Rs {{product.price}}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- END search-item-container -->
+                    <!-- BEGIN pagination -->
+                    <div class="text-center">
+                        <ul class="pagination m-t-0">
+                            {% if products.has_previous %}
+                            <li><a href="?page={{products.previous_page_number}}">Previous</a></li>
+                            {% endif %}
+                            <li class="active"><a href="javascript:;">{{products.number}}</a></li>
+                            {% if products.has_next %}
+                            <li><a href="?page={{products.next_page_number}}">Next</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- END pagination -->
+                </div>
+                <!-- END search-content -->
+                <!-- BEGIN search-sidebar -->
+                <div class="search-sidebar">
+                    <h4 class="title">Filter By</h4>
+                    <form action="{% url 'shop:filtering' %}" method="get">
+                        <div class="form-group">
+                            <label class="control-label">Keywords</label>
+                            <input type="text" value="{{keyword}}" class="form-control input-sm" name="keyword"
+                                placeholder="Enter Keywords" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Price</label>
+                            <div class="row row-space-0">
+                                <div class="col-md-5">
+                                    <input type="number" class="form-control input-sm" name="min_price" value="{{min_price}}"
+                                        placeholder="Min Price" />
+                                </div>
+                                <div class="col-md-2 text-center p-t-5 f-s-12 text-muted">to</div>
+                                <div class="col-md-5">
+                                    <input type="number" class="form-control input-sm" name="max_price" value="{{max_price}}"
+                                        placeholder="Max Price" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-b-30">
+                            <button type="submit" class="btn btn-sm btn-inverse"><i class="fa fa-search"></i>
+                                Filter</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- END search-sidebar -->
+            </div>
+            <!-- END search-container -->
+        </div>
+        <!-- END container -->
+    </div>
+
+{% endblock content %}  

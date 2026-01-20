@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div id="page-header" class="section-container page-header-container bg-black">
+        <div class="page-header-cover">
+            <img src="{% static 'assets/img/search-cover.jpg' %}" alt="" />
+        </div>
+    <div class="container">
+        <h1 class="page-header"><b>Orders History</b></h1>
+    </div>
+</div>  
+<br>
+<br>
+<div class="container" style="justify-content:center;display:flex;" >
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary" >
+      <th scope="col"></th>
+      <th scope="col">Transaction Status</th>
+      <th scope="col" >Status</th>
+      <th scope="col" > Order Number</th>
+      <th scope="col">Paid at</th>
+      <th scope="col">Product name</th>
+      <th scope="col"> Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <th class="table-danger" scope="row">{{forloop.counter}}</th>
+      {% if order.is_paid %}
+        <td>Success</td>
+      {% endif %} 
+      <td>{{order.status}}</td>
+      <td>{{order.order_number}}</td>
+      <td>{{order.paid_at}}</td>
+      {% for o in order.items.all %}
+        <th>{{o.product.title}}</th>
+        <th>{{o.quantity}}</th>
+        <th>PKR {{o.price}}</th>
+      {% endfor %}
+      <td>  PKR {{order.subtotal}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock content %}

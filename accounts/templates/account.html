@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}  
+    <div id="page-header" class="section-container page-header-container bg-black hide">
+        <!-- BEGIN page-header-cover -->
+        <div class="page-header-cover">
+            <img src="{% static 'assets/img/about-us-cover.jpg' %}" alt="" />
+        </div>
+        <!-- END page-header-cover -->
+        <!-- BEGIN container -->
+        <div class="container">
+            <h1 class="page-header"><b>About</b> Us</h1>
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- BEGIN #page-header -->
+    <!-- BEGIN #my-account -->
+    <div id="about-us-cover" class="section-container">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN breadcrumb -->
+            <ul class="breadcrumb m-b-10 f-s-12">
+                <li><a href="">Home</a></li>
+                <li><a href="">Store</a></li>
+                <li class="active">My Account</li>
+            </ul>
+            <!-- END breadcrumb -->
+            <!-- BEGIN account-container -->
+            <div class="account-container">
+                <!-- BEGIN account-sidebar -->
+                <div class="account-sidebar">
+                    <div class="account-sidebar-cover">
+                        <img src="{% static 'assets/img/my-account-cover.jpg' %}" alt="" />
+                    </div>
+                    <div class="account-sidebar-content">
+                        <h4>Your Account</h4>
+                        <p>
+                            Modify an order, track a shipment, and update your account info.
+                        </p>
+                        <p>
+                            All you need in one place. All with a few simple clicks.
+                        </p>
+                    </div>
+                </div>
+                <!-- END account-sidebar -->
+                <!-- BEGIN account-body -->
+                <div class="account-body">
+                    <!-- BEGIN row -->
+                    <div class="row">
+                        <!-- BEGIN col-6 -->
+                        <div class="col-md-6">
+                            <h4><i class="fa fa-gitlab fa-fw text-muted"></i> Orders</h4>
+                            <ul class="nav nav-list">
+                                <li><a href="{% url 'cart:track_shipment' %}">Track a shipment</a></li>
+                                <li><a href="{% url 'cart:return_items' %}">Return items</a></li>
+                                {% if request.user.shippingaddress %}
+                                <li><a href="{% url 'cart:update_shipping_address' request.user.shippingaddress.pk %}">Change shipping or billing info for an order</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'cart:order_history' %}">View order history</a></li>
+                            </ul>
+                            <h4><i class="fa fa-universal-access fa-fw text-muted"></i> Account Settings</h4>
+                                <ul class="nav nav-list">
+                                {% if not request.user.profile.image %}
+                                <li><a href="{% url 'account:create_pfp' %}">Add Profile Picture</a></li>
+                                {% elif request.user.profile.image %}
+                                <li><a href="{% url 'account:update_pfp' %}">Edit Profile Picture</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'account:logout' %}">Click for logout</a></li>
+                                <li><a href="{% url 'account:password_change' %}">Update your password</a></li>
+                            </ul>
+                        </div>
+                        <!-- END col-6 -->
+                        <!-- BEGIN col-6 -->
+                        <div class="col-md-6">
+                            <h4><i class="fa fa-cc-visa fa-fw text-muted"></i> Payments & Financing</h4>
+                            <ul class="nav nav-list">
+                                <li><a href="">Check the balance of a gift card</a></li>
+                                <li><a href="">Check the status of a rebate</a></li>
+                            </ul>
+                            <h4><i class="fa fa-wpforms fa-fw text-muted"></i> Specialists</h4>
+                            <ul class="nav nav-list">
+                                <li><a href="#">View your previous activity</a></li>
+                            </ul>
+                        </div>
+                        <!-- END col-6 -->
+                    </div>
+                    <!-- END row -->
+                </div>
+                <!-- END account-body -->
+            </div>
+            <!-- END account-container -->
+        </div>
+        <!-- END container -->
+    </div>
+{% endblock content %}

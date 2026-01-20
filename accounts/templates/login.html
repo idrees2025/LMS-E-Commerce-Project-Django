@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="font-size: 0.6cm;background-color:rgb(223,165,165);">
+    {% if invalid %}
+         <span style=" color: red;">{{invalid}}</span> 
+    {% endif %}
+</div>
+
+<div style="justify-content: center; display:flex;">
+    <form action="" method="post">
+        {% csrf_token %}
+        <h1>Login</h1>
+        <br>
+       <div class="form-group" >
+            <label for="{{form.username.id_for_label}}">Username</label> <br>
+            <input class="form-control" style="width: 8cm;" type="text" id="{{form.username.id}}" name="{{form.username.name}}" required placeholder="Enter your username"> <br>
+            {% if form.username.errors %}
+            <span style="color: red;">{{form.username.errors}}</span> <br>
+            {% endif %}
+        </div>
+
+       <div class="form-group" >
+            <label for="{{form.password.id_for_label}}"> Password</label> <br>
+            <input style="width: 8cm;" class="form-control" type="password" id="{{form.password.id}}" name="{{form.password.name}}" required placeholder="Enter your password"> <br>
+            {% if form.password.errors %}
+            <span style="color: red;">{{form.password.errors}}</span> <br>
+            {% endif %}
+        </div>
+
+        <div>
+            forget password <a href="{% url 'account:password_reset' %}">Forget password</a> <br>
+        </div>
+
+        Don`t have an account ? <a href="{% url 'account:register' %}">click here</a> <br> <br>
+        <input class="btn btn-success" type="submit" value="Login">
+    </form>
+</div>
+{% endblock content %}

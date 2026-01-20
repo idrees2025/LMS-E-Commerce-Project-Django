@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="section-container" id="checkout-payment">
+    <div class="container">
+        <div class="checkout">
+            <form method="POST" id="checkout-form" class="form-horizontal">
+                {% csrf_token %}
+                <!-- CHECKOUT HEADER -->
+                <div class="checkout-header">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="step">
+                                <a href="">
+                                    <div class="number">1</div>
+                                    <div class="info">
+                                        <div class="title">Delivery Options</div>
+                                        <div class="desc">Lorem ipsum dolor sit amet.</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="step">
+                                <a href="">
+                                <div class="number">2</div>
+                                <div class="info">
+                                    <div class="title">Shipping Address</div>
+                                    <div class="desc">Vivamus eleifend euismod.</div>
+                                 </div>
+                               </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="step active">
+                                <a href="">
+                                <div class="number">3</div>
+                                <div class="info">
+                                    <div class="title">Payment</div>
+                                    <div class="desc">Aenean ut pretium ipsum.</div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="step">
+                                <a href="">
+                                <div class="number">4</div>
+                                <div class="info">
+                                    <div class="title">Complete Payment</div>
+                                    <div class="desc">Curabitur interdum libero.</div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHECKOUT BODY -->
+                <div class="checkout-body">
+                    <h4 class="checkout-title">Payment Details</h4>
+                    <h4>Total: Rs{{ total }}</h4>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            Card Information <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-8">
+                            <div id="stripe-card-element"></div>
+                            <div id="stripe-error-message" class="text-danger m-t-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CHECKOUT FOOTER -->
+                <div class="checkout-footer">
+                    <a href="{% url 'cart:checkout_cart' %}" class="btn btn-white btn-lg pull-left">
+                        Back
+                    </a>
+                    <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">
+                        Pay Now
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+    const response = await fetch("{% url 'cart:create_payment_intent' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            order_id: "{{ order.id }}"
+        })
+    });
+    const data = await response.json();
+    const clientSecret = data.clientSecret;
+    const elements = stripe.elements({ clientSecret });
+    const paymentElement = elements.create("payment");
+    paymentElement.mount("#stripe-card-element");
+    const form = document.getElementById("checkout-form");
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const { error } = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: "http://localhost:8000/cart/checkout-complete/{{ order.id }}/"
+            }
+        });
+        if (error) {
+            document.getElementById("stripe-error-message").textContent = error.message;
+        }
+    });
+});
+</script>
+{% endblock %}

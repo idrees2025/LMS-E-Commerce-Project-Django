@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="justify-content: center;display:flex;">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        {% if form.instance.pk %}
+          <button class="btn btn-primary" type="submit" > Update </button>
+        {% else %}
+        <button class="btn btn-primary" type="submit">Create</button>
+        {% endif %}
+        {% if invalid %}
+          <div>
+            <span style="color: red;">{{invalid}}</span>
+          </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock content %}

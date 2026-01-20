@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <!-- BEGIN #checkout-cart -->
+    <div class="section-container" id="checkout-cart">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN checkout -->
+            <div class="checkout">
+                <form action="" method="POST" name="form_checkout">
+                    {% csrf_token %}
+                    <!-- BEGIN checkout-header -->
+                    <div class="checkout-header">
+                        <!-- BEGIN row -->
+                        <div class="row">
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step active">
+                                    <a href="">
+                                        <div class="number">1</div>
+                                        <div class="info">
+                                            <div class="title">Delivery Options</div>
+                                            <div class="desc">Lorem ipsum dolor sit amet.</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step">
+                                    <a href="">
+                                        <div class="number">2</div>
+                                        <div class="info">
+                                            <div class="title">Shipping Address</div>
+                                            <div class="desc">Vivamus eleifend euismod.</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step">
+                                    <a href="">
+                                        <div class="number">3</div>
+                                        <div class="info">
+                                            <div class="title">Payment</div>
+                                            <div class="desc">Aenean ut pretium ipsum. </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step">
+                                    <a href="">
+                                        <div class="number">4</div>
+                                        <div class="info">
+                                            <div class="title">Complete Payment</div>
+                                            <div class="desc">Curabitur interdum libero.</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                        </div>
+                        <!-- END row -->
+                    </div>
+                    <!-- END checkout-header -->
+                    <!-- BEGIN checkout-body -->
+                    <div class="checkout-body">
+                        <div class="table-responsive">
+                            <table class="table table-cart">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in c_items %}
+                                    <tr>
+                                        <td class="cart-product">
+                                            <a href="{% url 'cart:remove_cart' item.id %}">remove</a>
+                                            <div class="product-img">
+                                                <img src="{{item.product.main_image}}" alt="" />
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="title">{{item.product.title}} {{item.product.capacity}} ({{item.product.color}})</div>
+                                                <div class="desc">Delivers Tue 26/04/2016 - Free</div>
+                                            </div>
+                                        </td>
+                                        <td class="cart-price text-center">Rs {{item.product.discounted_price}}</td>
+                                        <td class="cart-qty text-center">
+                                            <div class="cart-qty-input">
+                                                <a href="{% url 'cart:decrease_quantity' item.id %}" class="qty-control left"
+                                                ><i class="fa fa-minus"></i></a>
+                                                <input  value="{{item.quantity}}" class="form-control" />
+                                              
+                                                <a href="{% url 'cart:increase_quantity' item.id %}" class="qty-control right"
+                                                ><i class="fa fa-plus"></i></a>
+                                            </div>
+                                            <div class="qty-desc">{{item.quantity}} to max order</div>
+                                              {% if low_stock %}
+                                                  <span style="color: red;" >{{low_stock}}</span>
+                                             {% endif %}
+                                        </td>
+                                        <td class="cart-total text-center">
+                                            Rs {{item.total_price}}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td class="cart-summary" colspan="4">
+                                            <div class="summary-container">
+                                                <div class="summary-row">
+                                                    <div class="field">Cart Subtotal</div>
+                                                    <div class="value">Rs {{total}}</div>
+                                                </div>
+                                                <div class="summary-row text-danger">
+                                                    <div class="field">Free Shipping</div>
+                                                    <div class="value">Rs 00</div>
+                                                </div>
+                                                <div class="summary-row total">
+                                                    <div class="field">Total</div>
+                                                    <div class="value">Rs {{total}}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END checkout-body -->
+                    <!-- BEGIN checkout-footer -->
+                    <div class="checkout-footer">
+                        <a href="{% url 'base:home' %}" class="btn btn-white btn-lg pull-left">Continue Shopping</a>
+                        <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Checkout</button>
+                    </div>
+                    <!-- END checkout-footer -->
+                </form>
+            </div>
+            <!-- END checkout -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #checkout-cart -->
+{% endblock content %}
+
